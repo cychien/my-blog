@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Justin Chien's blog`,
-    description: `嗨，我是Justin，平時我喜歡寫網頁、閱讀和分享自己的想法，希望能透過文字和大家一起成長 `,
+    description: `嗨，我是Justin，我是一名碩士學生、前端工程師、閱讀愛好者，喜歡和人分享知識與內心的想法`,
     author: `@chienyu`,
   },
   plugins: [

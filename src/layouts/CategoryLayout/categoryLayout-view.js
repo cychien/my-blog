@@ -37,8 +37,8 @@ function CategoryLayoutView({ children }) {
             <h1 className="cover__logo">Justin Chien's blog</h1>
             <div className="cover__intro">
               <div>嗨 👋🏼 ，我是Justin</div>
-              <div>平時我喜歡寫網頁、閱讀和分享自己的想法</div>
-              <div>希望能透過文字和大家一起成長 🚀</div>
+              <div>我是一名碩士學生、前端工程師、閱讀愛好者</div>
+              <div>喜歡和人分享知識與內心的想法</div>
             </div>
           </div>
           {/* <div className="cover__compass">

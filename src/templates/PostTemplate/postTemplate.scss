@@ -30,8 +30,8 @@
   &__container {
     h1 {
       text-align: center;
-      padding-top: 42px;
-      padding-bottom: 42px;
+      padding-top: 56px;
+      padding-bottom: 56px;
       margin-bottom: 0;
       color: darken($primary-color, 8%);
     }
@@ -42,7 +42,7 @@
   }
   &__image {
     width: 90%;
-    height: 490px;
+    height: 560px;
     border-radius: 10px;
   }
   &__segment-container {
