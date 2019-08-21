@@ -1,0 +1,133 @@
+@import '../../assets/stylesheets/abstracts/variables';
+
+.post-template {
+  &__header {
+    width: 100%;
+    height: 63px;
+    background-color: $primary-color;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-logo {
+      font-family: 'Satisfy', cursive;
+      color: #fff;
+      font-size: 1.5rem;
+    }
+    &-go-back {
+      position: absolute;
+      left: 5%;
+      a {
+        color: #fff !important;
+        font-size: 16px;
+        cursor: pointer;
+        &:hover {
+          color: $secondary-color !important;
+        }
+      }
+    }
+  }
+  &__container {
+    h1 {
+      text-align: center;
+      padding-top: 42px;
+      padding-bottom: 42px;
+      margin-bottom: 0;
+      color: darken($primary-color, 8%);
+    }
+  }
+  &__image-container {
+    display: flex;
+    justify-content: center;
+  }
+  &__image {
+    width: 90%;
+    height: 490px;
+    border-radius: 10px;
+  }
+  &__segment-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -63px !important;
+  }
+  &__segment {
+    width: 60%;
+    position: relative;
+    top: -140px;
+    color: darken($primary-color, 8%) !important;
+  }
+  &__watch-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 140px;
+  }
+  &__promote-articles {
+    width: 80%;
+  }
+  &__promote-article {
+    width: 100%;
+    height: 315px;
+    &--mix {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &__home {
+    font-size: 1.125rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    color: $dark-blue !important;
+  }
+  &__home-icon {
+    margin-right: 14px;
+  }
+}
+
+.custom-mdx {
+  &__a {
+    color: darken($orange, 10%) !important;
+    text-decoration: underline;
+    &:hover {
+      text-decoration: underline;
+      color: darken($orange, 20%) !important;
+    }
+  }
+  &__p {
+    line-height: 1.6rem;
+    margin-bottom: 2rem !important;
+  }
+  &__blockquote {
+    position: relative;
+    background-color: rgba($light-blue, 0.3);
+    padding-top: 21px;
+    padding-bottom: 21px;
+    margin-bottom: 2rem !important;
+    p {
+      margin-bottom: 0px !important;
+    }
+    &::before {
+      content: '';
+      width: 1.45rem;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -1.45rem;
+      background-color: rgba($light-blue, 0.3);
+    }
+    &::after {
+      content: '';
+      width: 6px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -1.45rem;
+      background-color: $dark-blue;
+      z-index: 99;
+    }
+  }
+}
