@@ -4,10 +4,10 @@ import Image from 'gatsby-image'
 import { MDXProvider } from '@mdx-js/react'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import SEO from '../../components/SEO'
-import MainCSSProvider from '../../layouts/MainCSSProvider'
-import { Container, Segment, Grid, Icon } from 'semantic-ui-react'
+//import MainCSSProvider from '../../layouts/MainCSSProvider'
+//import { Container, Segment, Grid, Icon } from 'semantic-ui-react'
 import Headroom from 'react-headroom'
-import './postTemplate.scss'
+//import './postTemplate.scss'
 
 function PostTemplateView() {
   const data = useStaticQuery(graphql`

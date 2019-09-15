@@ -1,102 +1,114 @@
-import React from 'react'
-import { Link, graphql } from 'gatsby'
-import { Grid } from 'semantic-ui-react'
-import CategoryLayout from '../layouts/CategoryLayout'
-import SEO from '../components/SEO'
-import PostCard from '../components/PostCard'
-import chunk from 'lodash.chunk'
-import drop from 'lodash.drop'
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import BackgroundImage from 'gatsby-background-image'
+import MainLayout from '../layouts/MainLayout'
 import './index.scss'
 
-const IndexPage = ({ data }) => {
+const findArticleTypeLabel = type => {
+  const typeLabelMap = {
+    all: '所有文章',
+    life: '人生方向',
+    productivity: '生產力',
+    web: '網頁開發',
+  }
+  return typeLabelMap[type] || null
+}
+
+const Article = ({ title, thumbnail, type, readingTime }) => (
+  <BackgroundImage Tag="div" className="index__article" fluid={thumbnail}>
+    <div className="index__article-type">{type}</div>
+    <div className="index__article-banner">
+      <div className="index__article-title">{title}</div>
+      <div className="index__article-min">{readingTime} min</div>
+    </div>
+  </BackgroundImage>
+)
+
+function Index({ data }) {
+  const [showArticleTypeSelect, setShowArticleTypeSelect] = useState(false)
+  const [articleType, setArticleType] = useState('all')
   const { edges: posts } = data.allMdx
-  const remainder = posts.length % 3
+  const displayPosts =
+    articleType === 'all'
+      ? posts
+      : posts.filter(post => post.node.frontmatter.type === articleType)
+
   return (
-    <CategoryLayout>
-      <SEO title="Justin Chien's blog" />
-      <div className="category">
-        <Grid columns="equal">
-          {remainder === 1 && (
-            <Grid.Row>
-              <Grid.Column>
-                <Link to={posts[0].node.fields.slug}>
-                  <PostCard
-                    title={posts[0].node.frontmatter.title}
-                    date={posts[0].node.frontmatter.date}
-                    author={posts[0].node.frontmatter.author}
-                    cover={
-                      posts[0].node.frontmatter.cover.childImageSharp.fluid
-                    }
-                    readingTime={posts[0].node.frontmatter.readingTime}
-                    tag={posts[0].node.frontmatter.tag}
-                    intro={posts[0].node.frontmatter.intro}
-                    isCoverLeft
-                  />
-                </Link>
-              </Grid.Column>
-            </Grid.Row>
+    <MainLayout>
+      <div className="container">
+        <div className="index__article-type-title">
+          <div
+            onClick={() => setShowArticleTypeSelect(prevState => !prevState)}
+          >
+            {findArticleTypeLabel(articleType)}
+            <FontAwesomeIcon icon={faCaretDown} className="ml-2" />
+          </div>
+          {showArticleTypeSelect && (
+            <div className="index__article-type-select">
+              {articleType !== 'all' && (
+                <div
+                  className="index__article-type-option"
+                  onClick={() => {
+                    setArticleType('all')
+                    setShowArticleTypeSelect(false)
+                  }}
+                >
+                  所有文章
+                </div>
+              )}
+              {articleType !== 'life' && (
+                <div
+                  className="index__article-type-option"
+                  onClick={() => {
+                    setArticleType('life')
+                    setShowArticleTypeSelect(false)
+                  }}
+                >
+                  人生方向
+                </div>
+              )}
+              {articleType !== 'productivity' && (
+                <div
+                  className="index__article-type-option"
+                  onClick={() => {
+                    setArticleType('productivity')
+                    setShowArticleTypeSelect(false)
+                  }}
+                >
+                  生產力
+                </div>
+              )}
+              {articleType !== 'web' && (
+                <div
+                  className="index__article-type-option"
+                  onClick={() => {
+                    setArticleType('web')
+                    setShowArticleTypeSelect(false)
+                  }}
+                >
+                  網頁開發
+                </div>
+              )}
+            </div>
           )}
-          {remainder === 2 && (
-            <Grid.Row>
-              <Grid.Column>
-                <Link to={posts[0].node.fields.slug}>
-                  <PostCard
-                    title={posts[0].node.frontmatter.title}
-                    date={posts[0].node.frontmatter.date}
-                    author={posts[0].node.frontmatter.author}
-                    cover={
-                      posts[0].node.frontmatter.cover.childImageSharp.fluid
-                    }
-                    readingTime={posts[0].node.frontmatter.readingTime}
-                    tag={posts[0].node.frontmatter.tag}
-                    intro={posts[0].node.frontmatter.intro}
-                  />
-                </Link>
-              </Grid.Column>
-              <Grid.Column>
-                <Link to={posts[1].node.fields.slug}>
-                  <PostCard
-                    title={posts[1].node.frontmatter.title}
-                    date={posts[1].node.frontmatter.date}
-                    author={posts[1].node.frontmatter.author}
-                    cover={
-                      posts[1].node.frontmatter.cover.childImageSharp.fluid
-                    }
-                    readingTime={posts[1].node.frontmatter.readingTime}
-                    tag={posts[1].node.frontmatter.tag}
-                    intro={posts[1].node.frontmatter.intro}
-                  />
-                </Link>
-              </Grid.Column>
-            </Grid.Row>
-          )}
-          {chunk(drop(posts, remainder), 3).map((group, index) => (
-            <Grid.Row key={index}>
-              {group.map(({ node: post }, subIndex) => (
-                <Grid.Column key={`${index}-${subIndex}`}>
-                  <Link to={post.fields.slug}>
-                    <PostCard
-                      title={post.frontmatter.title}
-                      date={post.frontmatter.date}
-                      author={post.frontmatter.author}
-                      cover={post.frontmatter.cover.childImageSharp.fluid}
-                      readingTime={post.frontmatter.readingTime}
-                      tag={post.frontmatter.tag}
-                      intro={post.frontmatter.intro}
-                    />
-                  </Link>
-                </Grid.Column>
-              ))}
-            </Grid.Row>
-          ))}
-        </Grid>
+        </div>
+        {displayPosts.map(post => (
+          <Article
+            key={post.node.id}
+            title={post.node.frontmatter.title}
+            thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
+            type={findArticleTypeLabel(post.node.frontmatter.type)}
+            readingTime={post.node.frontmatter.readingTime}
+          />
+        ))}
       </div>
-    </CategoryLayout>
+    </MainLayout>
   )
 }
 
 export const pageQuery = graphql`
-  query blogIndex {
+  query {
     allMdx {
       edges {
         node {
@@ -113,9 +125,8 @@ export const pageQuery = graphql`
             }
             date(formatString: "YYYY.MM.DD")
             author
-            tag
+            type
             readingTime
-            intro
           }
           fields {
             slug
@@ -126,4 +137,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default IndexPage
+export default Index

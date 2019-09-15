@@ -1,10 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Manjari:400,700|Noto+Sans+TC:400,500,700&display=swap&subset=chinese-traditional');
 
 * {
   font-family: 'Noto Sans TC', sans-serif;
-}
-
-// HOLE -.-
-html {
-  overflow-y: visible !important;
+  font-size: 18px;
 }

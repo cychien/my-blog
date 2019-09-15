@@ -1,0 +1,49 @@
+@import '../../assets/stylesheets/abstracts/variables';
+
+.main-layout {
+  &__wrapper {
+    width: 100%;
+  }
+  &__header {
+    background-color: #fff;
+    box-shadow: 0px 3px 6px rgba(#000, 0.16);
+  }
+  &__name {
+    padding-top: 60px;
+    padding-bottom: 46px;
+    margin-bottom: 0px;
+    width: 100%;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+  }
+  &__navbar {
+    width: 100%;
+    padding: 0 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  &__navbar-tab {
+    display: block;
+    height: 100%;
+    padding-bottom: 10px;
+    cursor: pointer;
+    position: relative;
+    font-weight: 500;
+    color: $dark-primary-color;
+    text-decoration: none;
+    &:hover {
+      color: rgba($dark-primary-color, 0.8);
+      text-decoration: none;
+    }
+  }
+  &__navbar-tab--active::after {
+    content: '';
+    height: 3px;
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    right: -10px;
+    background-color: $primary-color;
+  }
+}
