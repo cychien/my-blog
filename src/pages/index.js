@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { navigate } from 'gatsby'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import BackgroundImage from 'gatsby-background-image'
@@ -15,8 +16,13 @@ const findArticleTypeLabel = type => {
   return typeLabelMap[type] || null
 }
 
-const Article = ({ title, thumbnail, type, readingTime }) => (
-  <BackgroundImage Tag="div" className="index__article" fluid={thumbnail}>
+const Article = ({ link, title, thumbnail, type, readingTime }) => (
+  <BackgroundImage
+    Tag="div"
+    className="index__article"
+    fluid={thumbnail}
+    onClick={() => navigate(link)}
+  >
     <div className="index__article-type">{type}</div>
     <div className="index__article-banner">
       <div className="index__article-title">{title}</div>
@@ -37,13 +43,13 @@ function Index({ data }) {
   return (
     <MainLayout>
       <div className="container">
-        <div className="index__article-type-title">
-          <div
+        <div className="index__article-type-label">
+          <span
             onClick={() => setShowArticleTypeSelect(prevState => !prevState)}
           >
             {findArticleTypeLabel(articleType)}
             <FontAwesomeIcon icon={faCaretDown} className="ml-2" />
-          </div>
+          </span>
           {showArticleTypeSelect && (
             <div className="index__article-type-select">
               {articleType !== 'all' && (
@@ -96,6 +102,7 @@ function Index({ data }) {
         {displayPosts.map(post => (
           <Article
             key={post.node.id}
+            link={post.node.fields.slug}
             title={post.node.frontmatter.title}
             thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
             type={findArticleTypeLabel(post.node.frontmatter.type)}

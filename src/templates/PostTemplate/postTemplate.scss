@@ -1,91 +1,77 @@
 @import '../../assets/stylesheets/abstracts/variables';
 
-.post-template {
-  &__header {
-    width: 100%;
-    height: 63px;
-    background-color: $primary-color;
+.post {
+  &__title {
+    font-size: 22px;
+    margin-bottom: 34px;
+    padding-left: 10px;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &-logo {
-      font-family: 'Satisfy', cursive;
-      color: #fff;
-      font-size: 1.5rem;
-    }
-    &-go-back {
+    font-weight: 500;
+    &::after {
+      content: '';
       position: absolute;
-      left: 5%;
-      a {
-        color: #fff !important;
-        font-size: 16px;
-        cursor: pointer;
-        &:hover {
-          color: $secondary-color !important;
-        }
-      }
+      height: 3px;
+      width: 60px;
+      background-color: $primary-color;
+      left: 0;
+      bottom: -10px;
     }
   }
-  &__container {
-    h1 {
-      text-align: center;
-      padding-top: 56px;
-      padding-bottom: 56px;
-      margin-bottom: 0;
-      color: darken($primary-color, 8%);
+  &__metadata {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 4px;
+    & div {
+      color: rgba(#432d39, 0.56);
+      font-size: 14px;
+    }
+    & div:not(:last-child) {
+      margin-right: 14px;
     }
   }
-  &__image-container {
-    display: flex;
-    justify-content: center;
+  &__cover {
+    margin-bottom: 50px;
   }
-  &__image {
-    width: 90%;
-    height: 560px;
-    border-radius: 10px;
+  &__mdx-a {
+    color: $primary-color !important;
+    text-decoration: none !important;
+    &:hover {
+      text-decoration: none !important;
+      color: rgba($primary-color, 0.8);
+    }
   }
-  &__segment-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: -63px !important;
+  &__mdx-p {
+    color: #3e2533;
+    font-size: 18px;
+    margin-bottom: 2rem !important;
   }
-  &__segment {
-    width: 60%;
+  &__mdx-blockquote {
     position: relative;
-    top: -140px;
-    color: darken($primary-color, 8%) !important;
-  }
-  &__watch-more {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 140px;
-  }
-  &__promote-articles {
-    width: 80%;
-  }
-  &__promote-article {
-    width: 100%;
-    height: 315px;
-    &--mix {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    background-color: rgba(#ffc9e7, 0.3);
+    padding: 20px 10px 20px 20px;
+    margin-bottom: 2rem !important;
+    margin-right: 0;
+    margin-left: 0;
+    border-radius: 0 5px 5px 0;
+    p {
+      margin-bottom: 0px !important;
     }
-  }
-  &__home {
-    font-size: 1.125rem;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    color: $dark-blue !important;
-  }
-  &__home-icon {
-    margin-right: 14px;
+    &::after {
+      content: '';
+      width: 6px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      background-color: #ff64bb;
+      border-radius: 5px 0 0 5px;
+    }
   }
 }
 
+/*
 .custom-mdx {
   &__a {
     color: darken($orange, 10%) !important;
@@ -131,3 +117,4 @@
     }
   }
 }
+*/

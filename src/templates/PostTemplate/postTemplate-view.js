@@ -1,13 +1,12 @@
 import React from 'react'
-import { useStaticQuery, graphql, Link } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 import Image from 'gatsby-image'
 import { MDXProvider } from '@mdx-js/react'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
+import moment from 'moment'
+import ArticleLayout from '../../layouts/ArticleLayout'
 import SEO from '../../components/SEO'
-//import MainCSSProvider from '../../layouts/MainCSSProvider'
-//import { Container, Segment, Grid, Icon } from 'semantic-ui-react'
-import Headroom from 'react-headroom'
-//import './postTemplate.scss'
+import './postTemplate.scss'
 
 function PostTemplateView() {
   const data = useStaticQuery(graphql`
@@ -24,91 +23,40 @@ function PostTemplateView() {
               }
             }
           }
+          date
+          readingTime
         }
       }
     }
   `)
 
   return (
-    <MainCSSProvider>
-      <Headroom>
-        <div className="post-template__header">
-          <div className="post-template__header-logo">Justin Chien's blog</div>
-          <div className="post-template__header-go-back">
-            <Link to="/">回首頁</Link>
-          </div>
+    <ArticleLayout>
+      <div className="container">
+        <h1 className="post__title">{data.mdx.frontmatter.title}</h1>
+        <div className="post__metadata">
+          <div>{moment(data.mdx.frontmatter.date).format('YYYY-MM-DD')}</div>
+          <div>{data.mdx.frontmatter.readingTime} min</div>
         </div>
-      </Headroom>
-      <SEO title={data.mdx.frontmatter.title} />
-      <Container fluid className="post-template__container">
-        <h1>{data.mdx.frontmatter.title}</h1>
-        <div className="post-template__image-container">
+        <div className="post__cover">
           <Image
             fluid={data.mdx.frontmatter.cover.childImageSharp.fluid}
-            className="post-template__image"
+            style={{ borderRadius: '5px' }}
           />
         </div>
-        <div className="post-template__segment-container">
-          <Segment raised padded="very" className="post-template__segment">
-            <MDXProvider
-              components={{
-                a: props => <a {...props} className="custom-mdx__a" />,
-                p: props => <p {...props} className="custom-mdx__p" />,
-                blockquote: props => (
-                  <blockquote {...props} className="custom-mdx__blockquote" />
-                ),
-              }}
-            >
-              <MDXRenderer>{data.mdx.body}</MDXRenderer>
-            </MDXProvider>
-          </Segment>
-        </div>
-        <div className="post-template__home">
-          <Link to="/">
-            <Icon name="home" className="post-template__home-icon" />
-            回首頁
-          </Link>
-        </div>
-        {/**
-           * 
-           * <div className="post-template__watch-more">
-          <h3>相關文章</h3>
-          <Grid columns={4} className="post-template__promote-articles">
-            <Grid.Row>
-              <Grid.Column>
-                <Segment
-                  color="brown"
-                  inverted
-                  className="post-template__promote-article post-template__promote-article--mix"
-                  raised
-                  stacked
-                >
-                  <Icon name="star" />
-                  人生方向
-                </Segment>
-              </Grid.Column>
-              <Grid.Column>
-                <Segment className="post-template__promote-article" raised>
-                  123
-                </Segment>
-              </Grid.Column>
-              <Grid.Column>
-                <Segment className="post-template__promote-article" raised>
-                  123
-                </Segment>
-              </Grid.Column>
-              <Grid.Column>
-                <Segment className="post-template__promote-article" raised>
-                  123
-                </Segment>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </div>
-           * 
-           */}
-      </Container>
-    </MainCSSProvider>
+        <MDXProvider
+          components={{
+            a: props => <a {...props} className="post__mdx-a" />,
+            p: props => <p {...props} className="post__mdx-p" />,
+            blockquote: props => (
+              <blockquote {...props} className="post__mdx-blockquote" />
+            ),
+          }}
+        >
+          <MDXRenderer>{data.mdx.body}</MDXRenderer>
+        </MDXProvider>
+      </div>
+    </ArticleLayout>
   )
 }
 

@@ -1,8 +1,7 @@
 @import '../assets/stylesheets/abstracts/variables';
 
 .index {
-  &__article-type-title {
-    width: 100%;
+  &__article-type-label {
     margin: 36px 0;
     position: relative;
   }
@@ -33,7 +32,6 @@
     cursor: pointer;
   }
   &__article-type {
-    background-color: $dark-primary-color;
     padding: 8px 20px;
     color: #f0f0f0;
     position: absolute;
