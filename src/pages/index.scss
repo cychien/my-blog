@@ -1,25 +1,80 @@
 @import '../assets/stylesheets/abstracts/variables';
 
+@mixin container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .index {
-  &__article-type-label {
-    margin: 36px 0;
-    position: relative;
+  &__wrapper {
+    @media (min-width: 576px) {
+      max-width: 540px;
+      @include container;
+    }
+    @media (min-width: 768px) {
+      max-width: 720px;
+      @include container;
+    }
+    @media (min-width: 992px) {
+      max-width: 960px;
+      @include container;
+    }
+    @media (max-width: 576px) {
+      border-radius: 26px 26px 0 0;
+      background-color: #f0f0f0;
+      padding: 50px 30px 0;
+      min-height: calc(100vh - 100px);
+    }
   }
-  &__article-type-select {
-    position: absolute;
-    left: 0;
-    top: 2rem;
-    background-color: #fff;
-    box-shadow: 0px 3px 6px rgba(#000, 0.16);
-    z-index: 1;
-    padding: 10px 0;
-    border-radius: 5px;
+  &__article-types {
+    display: flex;
+    @media (min-width: 576px) {
+      justify-content: center;
+      padding-bottom: 40px;
+    }
+    @media (max-width: 576px) {
+      overflow-x: auto;
+      border-radius: 5px;
+      padding-bottom: 40px;
+    }
   }
-  &__article-type-option {
-    padding: 10px 20px;
-  }
-  &__article-type-option--active {
-    background-color: rgba(#000, 0.05);
+  &__article-type-btn {
+    @media (min-width: 576px) {
+      padding: 8px 16px;
+      color: $grey-primary-color;
+      cursor: pointer;
+      &:not(:last-child) {
+        margin-right: 10px;
+        position: relative;
+        &::after {
+          content: '/';
+          position: absolute;
+          right: -10px;
+          color: $grey-primary-color;
+        }
+      }
+      &--active {
+        color: $primary-color;
+      }
+    }
+    @media (max-width: 576px) {
+      padding: 8px 16px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0px 3px 6px rgba(#000, 0.16);
+      font-size: 14px;
+      white-space: nowrap;
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+      &--active {
+        background-color: $primary-color;
+        color: #f0f0f0;
+      }
+    }
   }
   &__article {
     width: 100%;
@@ -32,16 +87,17 @@
     cursor: pointer;
   }
   &__article-type {
-    padding: 8px 20px;
-    color: #f0f0f0;
+    padding: 7px 14px;
+    color: #fcfcfc;
     position: absolute;
     top: 20px;
     left: 0px;
     font-size: 14px;
     border-radius: 0 5px 5px 0;
+    background-color: #707070;
   }
   &__article-banner {
-    background-color: #f0f0f0;
+    background-color: #f1f1f1;
     width: 100%;
     padding: 10px;
     display: flex;

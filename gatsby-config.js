@@ -43,7 +43,7 @@ module.exports = {
         short_name: `Justin's blog`,
         start_url: `/`,
         background_color: `#fff`,
-        theme_color: `#003b5c`,
+        theme_color: `#306060`,
         display: `minimal-ui`,
         icon: `src/assets/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },

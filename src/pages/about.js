@@ -16,7 +16,7 @@ function About() {
           <strong>我的Blog有哪些文章呢？</strong>
         </p>
         <p>
-          <strong>1. 人生方向</strong>
+          <strong>1. 人生建議</strong>
           <br />
           <span>
             這是我一直很想分享的主題，也是促使我開始Blogging的主因。生活中常有許多書籍、文章、影片給予了我極大的啟發，而這些啟發也正一步步地改變我的人生軌跡，因此特別想分享這些生命中的領悟，期許這些mindset也能幫助到大家

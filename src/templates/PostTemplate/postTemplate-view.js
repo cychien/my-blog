@@ -32,18 +32,25 @@ function PostTemplateView() {
 
   return (
     <ArticleLayout>
-      <div className="container">
-        <h1 className="post__title">{data.mdx.frontmatter.title}</h1>
-        <div className="post__metadata">
+      <div className="post__title-info--desktop">
+        <h1 className="post__title--desktop">{data.mdx.frontmatter.title}</h1>
+        <div className="post__metadata--desktop">
           <div>{moment(data.mdx.frontmatter.date).format('YYYY-MM-DD')}</div>
           <div>{data.mdx.frontmatter.readingTime} min</div>
         </div>
-        <div className="post__cover">
-          <Image
-            fluid={data.mdx.frontmatter.cover.childImageSharp.fluid}
-            style={{ borderRadius: '5px' }}
-          />
+      </div>
+      <div className="post__cover">
+        <Image fluid={data.mdx.frontmatter.cover.childImageSharp.fluid} />
+      </div>
+      <div className="container">
+        <div className="post__title-info--mobile">
+          <h1 className="post__title--mobile">{data.mdx.frontmatter.title}</h1>
+          <div className="post__metadata--mobile">
+            <div>{moment(data.mdx.frontmatter.date).format('YYYY-MM-DD')}</div>
+            <div>{data.mdx.frontmatter.readingTime} min</div>
+          </div>
         </div>
+
         <MDXProvider
           components={{
             a: props => <a {...props} className="post__mdx-a" />,

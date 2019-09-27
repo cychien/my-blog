@@ -1,6 +1,8 @@
 .about {
   &__wrapper {
-    width: 80%;
-    margin: 30px auto;
+    border-radius: 26px 26px 0 0;
+    background-color: #f0f0f0;
+    padding: 50px 30px 0;
+    min-height: calc(100vh - 100px);
   }
 }

@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { navigate } from 'gatsby'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import BackgroundImage from 'gatsby-background-image'
 import MainLayout from '../layouts/MainLayout'
+import cx from 'classnames'
 import './index.scss'
 
+const articleTypes = ['all', 'life', 'productivity', 'web']
 const findArticleTypeLabel = type => {
   const typeLabelMap = {
     all: '所有文章',
-    life: '人生方向',
+    life: '人生建議',
     productivity: '生產力',
     web: '網頁開發',
   }
@@ -32,83 +32,44 @@ const Article = ({ link, title, thumbnail, type, readingTime }) => (
 )
 
 function Index({ data }) {
-  const [showArticleTypeSelect, setShowArticleTypeSelect] = useState(false)
-  const [articleType, setArticleType] = useState('all')
+  const [selectedArticleType, setSelectedArticleType] = useState('all')
   const { edges: posts } = data.allMdx
   const displayPosts =
-    articleType === 'all'
+    selectedArticleType === 'all'
       ? posts
-      : posts.filter(post => post.node.frontmatter.type === articleType)
+      : posts.filter(post => post.node.frontmatter.type === selectedArticleType)
 
   return (
     <MainLayout>
-      <div className="container">
-        <div className="index__article-type-label">
-          <span
-            onClick={() => setShowArticleTypeSelect(prevState => !prevState)}
-          >
-            {findArticleTypeLabel(articleType)}
-            <FontAwesomeIcon icon={faCaretDown} className="ml-2" />
-          </span>
-          {showArticleTypeSelect && (
-            <div className="index__article-type-select">
-              {articleType !== 'all' && (
-                <div
-                  className="index__article-type-option"
-                  onClick={() => {
-                    setArticleType('all')
-                    setShowArticleTypeSelect(false)
-                  }}
-                >
-                  所有文章
-                </div>
-              )}
-              {articleType !== 'life' && (
-                <div
-                  className="index__article-type-option"
-                  onClick={() => {
-                    setArticleType('life')
-                    setShowArticleTypeSelect(false)
-                  }}
-                >
-                  人生方向
-                </div>
-              )}
-              {articleType !== 'productivity' && (
-                <div
-                  className="index__article-type-option"
-                  onClick={() => {
-                    setArticleType('productivity')
-                    setShowArticleTypeSelect(false)
-                  }}
-                >
-                  生產力
-                </div>
-              )}
-              {articleType !== 'web' && (
-                <div
-                  className="index__article-type-option"
-                  onClick={() => {
-                    setArticleType('web')
-                    setShowArticleTypeSelect(false)
-                  }}
-                >
-                  網頁開發
-                </div>
-              )}
+      <div className="index__wrapper">
+        <div className="index__article-types">
+          {articleTypes.map(articleType => (
+            <div
+              className={cx('index__article-type-btn', {
+                'index__article-type-btn--active':
+                  articleType === selectedArticleType,
+              })}
+              key={articleType}
+              onClick={() => setSelectedArticleType(articleType)}
+            >
+              {findArticleTypeLabel(articleType)}
             </div>
-          )}
+          ))}
         </div>
-        {displayPosts.map(post => (
-          <Article
-            key={post.node.id}
-            link={post.node.fields.slug}
-            title={post.node.frontmatter.title}
-            thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
-            type={findArticleTypeLabel(post.node.frontmatter.type)}
-            readingTime={post.node.frontmatter.readingTime}
-          />
-        ))}
+        <div className="row">
+          <div className="col-lg-4 col-sm-6 col-12">
+            {displayPosts.map(post => (
+              <Article
+                key={post.node.id}
+                link={post.node.fields.slug}
+                title={post.node.frontmatter.title}
+                thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
+                type={findArticleTypeLabel(post.node.frontmatter.type)}
+                readingTime={post.node.frontmatter.readingTime}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </MainLayout>
   )
