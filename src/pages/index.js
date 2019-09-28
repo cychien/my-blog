@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { navigate } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
-import MainLayout from '../layouts/MainLayout'
 import cx from 'classnames'
+import MainLayout from '../layouts/MainLayout'
 import './index.scss'
 
 const articleTypes = ['all', 'life', 'productivity', 'web']
@@ -26,7 +26,7 @@ const Article = ({ link, title, thumbnail, type, readingTime }) => (
     <div className="index__article-type">{type}</div>
     <div className="index__article-banner">
       <div className="index__article-title">{title}</div>
-      <div className="index__article-min">{readingTime} min</div>
+      <div className="index__article-min">{readingTime} 分鐘</div>
     </div>
   </BackgroundImage>
 )
@@ -38,6 +38,11 @@ function Index({ data }) {
     selectedArticleType === 'all'
       ? posts
       : posts.filter(post => post.node.frontmatter.type === selectedArticleType)
+  const postRemainder = posts.length % 3
+  const displayPostsRemainder =
+    postRemainder === 0 ? [] : displayPosts.slice(0, postRemainder)
+  const displayPostsMinusRemainder =
+    postRemainder === 0 ? displayPosts : displayPosts.slice(postRemainder)
 
   return (
     <MainLayout>
@@ -57,18 +62,34 @@ function Index({ data }) {
           ))}
         </div>
         <div className="row">
-          <div className="col-lg-4 col-sm-6 col-12">
-            {displayPosts.map(post => (
+          {displayPostsRemainder.map(post => (
+            <div
+              key={post.node.id}
+              className={cx({
+                'col-12': postRemainder === 1,
+                'col-lg-6 col-md-6 col-12': postRemainder === 2,
+              })}
+            >
               <Article
-                key={post.node.id}
                 link={post.node.fields.slug}
                 title={post.node.frontmatter.title}
                 thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
                 type={findArticleTypeLabel(post.node.frontmatter.type)}
                 readingTime={post.node.frontmatter.readingTime}
               />
-            ))}
-          </div>
+            </div>
+          ))}
+          {displayPostsMinusRemainder.map(post => (
+            <div key={post.node.id} className="col-lg-4 col-sm-6 col-12">
+              <Article
+                link={post.node.fields.slug}
+                title={post.node.frontmatter.title}
+                thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
+                type={findArticleTypeLabel(post.node.frontmatter.type)}
+                readingTime={post.node.frontmatter.readingTime}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </MainLayout>

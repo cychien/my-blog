@@ -36,7 +36,7 @@ function PostTemplateView() {
         <h1 className="post__title--desktop">{data.mdx.frontmatter.title}</h1>
         <div className="post__metadata--desktop">
           <div>{moment(data.mdx.frontmatter.date).format('YYYY-MM-DD')}</div>
-          <div>{data.mdx.frontmatter.readingTime} min</div>
+          <div>{data.mdx.frontmatter.readingTime} 分鐘</div>
         </div>
       </div>
       <div className="post__cover">
@@ -47,7 +47,7 @@ function PostTemplateView() {
           <h1 className="post__title--mobile">{data.mdx.frontmatter.title}</h1>
           <div className="post__metadata--mobile">
             <div>{moment(data.mdx.frontmatter.date).format('YYYY-MM-DD')}</div>
-            <div>{data.mdx.frontmatter.readingTime} min</div>
+            <div>{data.mdx.frontmatter.readingTime} 分鐘</div>
           </div>
         </div>
 
