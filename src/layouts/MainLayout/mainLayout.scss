@@ -28,6 +28,10 @@
       letter-spacing: 4px;
       word-spacing: 10px;
     }
+    @media (max-width: 576px) {
+      position: relative;
+      right: -5px;
+    }
   }
   &__avatar {
     border-radius: 50%;
@@ -38,8 +42,8 @@
       display: none;
     }
     @media (max-width: 576px) {
-      height: 26px;
-      width: 26px;
+      height: 36px;
+      width: 36px;
     }
   }
   &__menu {

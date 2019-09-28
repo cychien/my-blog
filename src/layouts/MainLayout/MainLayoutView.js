@@ -2,7 +2,7 @@ import React from 'react'
 import { navigate } from 'gatsby'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import avatar from '../../assets/images/gatsby-icon.png'
+import avatar from '../../assets/images/avatar.png'
 import './mainLayout.scss'
 
 function MainLayoutView({ children, isMenuOpen, toggleMenu }) {
