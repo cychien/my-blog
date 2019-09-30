@@ -8,28 +8,7 @@ import ArticleLayout from '../../layouts/ArticleLayout'
 import SEO from '../../components/SEO'
 import './postTemplate.scss'
 
-function PostTemplateView() {
-  const data = useStaticQuery(graphql`
-    query($id: String) {
-      mdx(id: { eq: $id }) {
-        id
-        body
-        frontmatter {
-          title
-          cover {
-            childImageSharp {
-              fluid(maxWidth: 2000) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-          date
-          readingTime
-        }
-      }
-    }
-  `)
-
+function PostTemplateView({ data }) {
   return (
     <ArticleLayout>
       <div className="post__title-info--desktop">
@@ -66,5 +45,26 @@ function PostTemplateView() {
     </ArticleLayout>
   )
 }
+
+export const query = graphql`
+  query($id: String) {
+    mdx(id: { eq: $id }) {
+      id
+      body
+      frontmatter {
+        title
+        cover {
+          childImageSharp {
+            fluid(maxWidth: 2000) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+        date
+        readingTime
+      }
+    }
+  }
+`
 
 export default PostTemplateView

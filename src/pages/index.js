@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { navigate } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
 import cx from 'classnames'
+import moment from 'moment'
 import MainLayout from '../layouts/MainLayout'
 import './index.scss'
 
@@ -38,11 +39,18 @@ function Index({ data }) {
     selectedArticleType === 'all'
       ? posts
       : posts.filter(post => post.node.frontmatter.type === selectedArticleType)
+  const displayPostSortByTime = displayPosts
+    .slice()
+    .sort((a, b) =>
+      moment(a.node.frontmatter.date).isAfter(moment(b.node.frontmatter.date))
+    )
   const postRemainder = posts.length % 3
   const displayPostsRemainder =
-    postRemainder === 0 ? [] : displayPosts.slice(0, postRemainder)
+    postRemainder === 0 ? [] : displayPostSortByTime.slice(0, postRemainder)
   const displayPostsMinusRemainder =
-    postRemainder === 0 ? displayPosts : displayPosts.slice(postRemainder)
+    postRemainder === 0
+      ? displayPostSortByTime
+      : displayPostSortByTime.slice(postRemainder)
 
   return (
     <MainLayout>
@@ -112,7 +120,7 @@ export const pageQuery = graphql`
                 }
               }
             }
-            date(formatString: "YYYY.MM.DD")
+            date(formatString: "YYYY-MM-DD")
             author
             type
             readingTime
