@@ -44,6 +44,8 @@
     @media (max-width: 576px) {
       height: 36px;
       width: 36px;
+      position: relative;
+      top: -2px;
     }
   }
   &__menu {

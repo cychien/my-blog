@@ -1,5 +1,6 @@
 import React from 'react'
-import { navigate } from 'gatsby'
+import { useStaticQuery, graphql, navigate } from 'gatsby'
+import Image from 'gatsby-image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import OutsideListener from '../../components/OutsideListener'
@@ -7,6 +8,22 @@ import avatar from '../../assets/images/avatar.png'
 import './mainLayout.scss'
 
 function MainLayoutView({ children, isMenuOpen, toggleMenu }) {
+  const avatarImageSrc = useStaticQuery(graphql`
+    query {
+      allFile(filter: { name: { eq: "avatar" } }) {
+        edges {
+          node {
+            childImageSharp {
+              fixed(width: 36, height: 36) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+
   return (
     <div className="main-layout__wrapper">
       <div className="main-layout__header">
@@ -39,7 +56,10 @@ function MainLayoutView({ children, isMenuOpen, toggleMenu }) {
         </OutsideListener>
         <div className="main-layout__name">Justin Chien</div>
         <div>
-          <img src={avatar} className="main-layout__avatar" />
+          <Image
+            fixed={avatarImageSrc.allFile.edges[0].node.childImageSharp.fixed}
+            className="main-layout__avatar"
+          />
         </div>
       </div>
       {children}
