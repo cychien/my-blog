@@ -41,8 +41,10 @@ function Index({ data }) {
       : posts.filter(post => post.node.frontmatter.type === selectedArticleType)
   const displayPostSortByTime = displayPosts
     .slice()
-    .sort((a, b) =>
-      moment(a.node.frontmatter.date).isAfter(moment(b.node.frontmatter.date))
+    .sort(
+      (a, b) =>
+        moment(b.node.frontmatter.date).valueOf() -
+        moment(a.node.frontmatter.date).valueOf()
     )
   const postRemainder = posts.length % 3
   const displayPostsRemainder =
