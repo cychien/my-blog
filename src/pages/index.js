@@ -21,10 +21,12 @@ const Article = ({ link, thumbnail, type, title, excerpt, readingTime }) => (
   <div className="index__article" onClick={() => navigate(link)}>
     <Image fluid={thumbnail} className="index__article-thumbnail" />
     <div className="index__article-content">
-      <div className="index__article-type">{type}</div>
-      <div className="index__article-title">{title}</div>
-      <div className="index__article-excerpt">
-        {excerpt.substring(0, 60) + '...'}
+      <div>
+        <div className="index__article-type">{type}</div>
+        <div className="index__article-title">{title}</div>
+        <div className="index__article-excerpt">
+          {excerpt.substring(0, 50) + '...'}
+        </div>
       </div>
       <div className="index__article-min">{readingTime} 分鐘</div>
     </div>
@@ -78,6 +80,7 @@ function Index({ data }) {
                 'col-12': postRemainder === 1,
                 'col-lg-6 col-md-6 col-12': postRemainder === 2,
               })}
+              style={{ marginBottom: '18px' }}
             >
               <Article
                 link={post.node.fields.slug}
@@ -90,7 +93,11 @@ function Index({ data }) {
             </div>
           ))}
           {displayPostsMinusRemainder.map(post => (
-            <div key={post.node.id} className="col-lg-4 col-sm-6 col-12">
+            <div
+              key={post.node.id}
+              className="col-lg-4 col-sm-6 col-12"
+              style={{ marginBottom: '18px' }}
+            >
               <Article
                 link={post.node.fields.slug}
                 thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}

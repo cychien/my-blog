@@ -21,7 +21,7 @@ function PostTemplateView({ data }) {
       <div className="post__cover">
         <Image fluid={data.mdx.frontmatter.cover.childImageSharp.fluid} />
       </div>
-      <div className="container">
+      <div className="post__content-wrapper">
         <div className="post__title-info--mobile">
           <h1 className="post__title--mobile">{data.mdx.frontmatter.title}</h1>
           <div className="post__metadata--mobile">
