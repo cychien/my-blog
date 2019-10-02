@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { navigate } from 'gatsby'
-import BackgroundImage from 'gatsby-background-image'
+import Image from 'gatsby-image'
 import cx from 'classnames'
 import moment from 'moment'
 import MainLayout from '../layouts/MainLayout'
@@ -17,19 +17,18 @@ const findArticleTypeLabel = type => {
   return typeLabelMap[type] || null
 }
 
-const Article = ({ link, title, thumbnail, type, readingTime }) => (
-  <BackgroundImage
-    Tag="div"
-    className="index__article"
-    fluid={thumbnail}
-    onClick={() => navigate(link)}
-  >
-    <div className="index__article-type">{type}</div>
-    <div className="index__article-banner">
+const Article = ({ link, thumbnail, type, title, excerpt, readingTime }) => (
+  <div className="index__article" onClick={() => navigate(link)}>
+    <Image fluid={thumbnail} className="index__article-thumbnail" />
+    <div className="index__article-content">
+      <div className="index__article-type">{type}</div>
       <div className="index__article-title">{title}</div>
+      <div className="index__article-excerpt">
+        {excerpt.substring(0, 60) + '...'}
+      </div>
       <div className="index__article-min">{readingTime} 分鐘</div>
     </div>
-  </BackgroundImage>
+  </div>
 )
 
 function Index({ data }) {
@@ -82,9 +81,10 @@ function Index({ data }) {
             >
               <Article
                 link={post.node.fields.slug}
-                title={post.node.frontmatter.title}
                 thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
                 type={findArticleTypeLabel(post.node.frontmatter.type)}
+                title={post.node.frontmatter.title}
+                excerpt={post.node.excerpt}
                 readingTime={post.node.frontmatter.readingTime}
               />
             </div>
@@ -93,9 +93,10 @@ function Index({ data }) {
             <div key={post.node.id} className="col-lg-4 col-sm-6 col-12">
               <Article
                 link={post.node.fields.slug}
-                title={post.node.frontmatter.title}
                 thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
                 type={findArticleTypeLabel(post.node.frontmatter.type)}
+                title={post.node.frontmatter.title}
+                excerpt={post.node.excerpt}
                 readingTime={post.node.frontmatter.readingTime}
               />
             </div>
