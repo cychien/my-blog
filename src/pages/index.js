@@ -87,7 +87,7 @@ function Index({ data }) {
                 thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
                 type={findArticleTypeLabel(post.node.frontmatter.type)}
                 title={post.node.frontmatter.title}
-                excerpt={post.node.excerpt}
+                excerpt={post.node.frontmatter.excerpt}
                 readingTime={post.node.frontmatter.readingTime}
               />
             </div>
@@ -103,7 +103,7 @@ function Index({ data }) {
                 thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
                 type={findArticleTypeLabel(post.node.frontmatter.type)}
                 title={post.node.frontmatter.title}
-                excerpt={post.node.excerpt}
+                excerpt={post.node.frontmatter.excerpt}
                 readingTime={post.node.frontmatter.readingTime}
               />
             </div>
@@ -120,7 +120,6 @@ export const pageQuery = graphql`
       edges {
         node {
           id
-          excerpt
           frontmatter {
             title
             cover {
@@ -130,6 +129,7 @@ export const pageQuery = graphql`
                 }
               }
             }
+            excerpt
             date(formatString: "YYYY-MM-DD")
             author
             type
