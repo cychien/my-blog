@@ -22,6 +22,11 @@
       max-width: 960px;
       @include container;
     }
+    @media (min-width: 1200px) {
+      max-width: 1140px;
+      @include container;
+    }
+    
     @media (max-width: 576px) {
       border-radius: 26px 26px 0 0;
       background-color: #f0f0f0;
