@@ -1,10 +1,12 @@
 import React from 'react'
 import MainLayout from '../layouts/MainLayout'
+import SEO from '../components/SEO'
 import './about.scss'
 
 function About() {
   return (
     <MainLayout>
+      <SEO title="關於我" pathname="/about" />
       <div className="about__wrapper">
         <p>
           <strong>Hi 我是 Justin</strong>

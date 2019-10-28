@@ -2,8 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `Justin Chien's Blog`,
     description: `嗨，我是Justin，我是一名碩士學生、前端工程師、閱讀愛好者，喜歡和人分享知識與內心的想法`,
-    author: `Justin Chien`,
     url: 'https://justinchien.co',
+    image: `${__dirname}/src/assets/images/favicon.png`,
   },
   plugins: [
     `gatsby-plugin-sass`,

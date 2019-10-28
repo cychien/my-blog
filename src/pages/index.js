@@ -4,6 +4,7 @@ import Image from 'gatsby-image'
 import cx from 'classnames'
 import moment from 'moment'
 import MainLayout from '../layouts/MainLayout'
+import SEO from '../components/SEO'
 import './index.scss'
 
 const articleTypes = ['all', 'life', 'productivity', 'web']
@@ -80,6 +81,7 @@ function Index({ data }) {
 
   return (
     <MainLayout>
+      <SEO />
       <div className="index__wrapper">
         <div className="index__article-types">
           {articleTypes.map(articleType => (

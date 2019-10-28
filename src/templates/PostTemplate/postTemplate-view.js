@@ -12,6 +12,12 @@ import './postTemplate.scss'
 function PostTemplateView({ data }) {
   return (
     <ArticleLayout>
+      <SEO
+        title={data.mdx.frontmatter.title}
+        description={data.mdx.frontmatter.excerpt}
+        pathname={`/${data.mdx.frontmatter.title}`}
+        isArticle
+      />
       <div className="post__title-info--desktop">
         <h1 className="post__title--desktop">{data.mdx.frontmatter.title}</h1>
         <div className="post__metadata--desktop">
