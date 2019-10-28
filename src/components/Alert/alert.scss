@@ -1,0 +1,14 @@
+.custom-alert {
+  position: relative;
+  width: 100%;
+  padding: 26px 30px;
+  line-height: 1.7em;
+  font-size: 20px;
+  border-radius: 5px;
+
+  &__icon {
+    position: absolute;
+    left: -16px;
+    top: -9px;
+  }
+}

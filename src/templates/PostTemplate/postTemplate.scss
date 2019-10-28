@@ -149,6 +149,10 @@
     }
     margin-bottom: 2rem !important;
     line-height: 1.8em;
+
+    & + ul {
+      margin-top: -1rem;
+    }
   }
   &__mdx-blockquote {
     position: relative;
@@ -186,9 +190,13 @@
     }
     @media (min-width: 768px) {
       max-width: 720px;
+      padding-right: 0px;
+      padding-left: 0px;
     }
     @media (min-width: 992px) {
       max-width: 920px;
+      padding-right: 0px;
+      padding-left: 0px;
     }
     // @media (min-width: 1200px) {
     //   max-width: 1140px;
@@ -210,5 +218,3 @@
     }
   }
 }
-
-

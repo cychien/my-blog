@@ -1,0 +1,42 @@
+.demo1-detail {
+  &__container {
+    position: relative;
+    height: 120px;
+    margin-top: 30px;
+    margin-left: 30px;
+  }
+  &__window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 100px;
+    border-radius: 5px;
+    border: 3px solid #333;
+    background-color: transparent;
+    z-index: 100;
+  }
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 120px;
+    background: linear-gradient(to right, #f07d80, #f8a28b);
+    z-index: 99;
+    border-radius: 5px;
+    animation: 5s infinite change-bg-detail;
+  }
+}
+
+@keyframes change-bg-detail {
+  0%,
+  100% {
+    top: 0;
+    left: 0;
+  }
+  50% {
+    top: -20px;
+    left: -30px;
+  }
+}

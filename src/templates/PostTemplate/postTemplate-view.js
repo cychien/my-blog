@@ -6,6 +6,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx'
 import moment from 'moment'
 import ArticleLayout from '../../layouts/ArticleLayout'
 import SEO from '../../components/SEO'
+import CodeBlock from '../../components/CodeBlock'
 import './postTemplate.scss'
 
 function PostTemplateView({ data }) {
@@ -39,6 +40,7 @@ function PostTemplateView({ data }) {
             blockquote: props => (
               <blockquote {...props} className="post__mdx-blockquote" />
             ),
+            code: CodeBlock,
           }}
         >
           <MDXRenderer>{data.mdx.body}</MDXRenderer>
