@@ -1,5 +1,5 @@
 import React from 'react'
-import './AutoChangeColorBtn.scss'
+import './autoChangeColorBtn.scss'
 
 function AutoChangeColorBtnView() {
   return (
