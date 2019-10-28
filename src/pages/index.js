@@ -17,12 +17,35 @@ const findArticleTypeLabel = type => {
   return typeLabelMap[type] || null
 }
 
-const Article = ({ link, thumbnail, type, title, excerpt, readingTime }) => (
-  <div className="index__article" onClick={() => navigate(link)}>
+const Article = ({
+  link,
+  thumbnail,
+  type,
+  subType,
+  title,
+  excerpt,
+  readingTime,
+  isHorizontal,
+}) => (
+  <div
+    className={cx('index__article', {
+      'index__article--horizontal': isHorizontal,
+    })}
+    onClick={() => navigate(link)}
+  >
     <Image fluid={thumbnail} className="index__article-thumbnail" />
     <div className="index__article-content">
       <div>
-        <div className="index__article-type">{type}</div>
+        <div className="index__article-type">
+          {type}
+          {subType && (
+            <span
+              style={{ color: '#16a085', marginLeft: '10px', fontSize: '14px' }}
+            >
+              #{subType}
+            </span>
+          )}
+        </div>
         <div className="index__article-title">{title}</div>
         <div className="index__article-excerpt">
           {excerpt.substring(0, 50) + '...'}
@@ -47,7 +70,7 @@ function Index({ data }) {
         moment(b.node.frontmatter.date).valueOf() -
         moment(a.node.frontmatter.date).valueOf()
     )
-  const postRemainder = posts.length % 3
+  const postRemainder = displayPosts.length % 3
   const displayPostsRemainder =
     postRemainder === 0 ? [] : displayPostSortByTime.slice(0, postRemainder)
   const displayPostsMinusRemainder =
@@ -86,9 +109,11 @@ function Index({ data }) {
                 link={post.node.fields.slug}
                 thumbnail={post.node.frontmatter.cover.childImageSharp.fluid}
                 type={findArticleTypeLabel(post.node.frontmatter.type)}
+                subType={post.node.frontmatter.subType}
                 title={post.node.frontmatter.title}
                 excerpt={post.node.frontmatter.excerpt}
                 readingTime={post.node.frontmatter.readingTime}
+                isHorizontal={postRemainder === 1}
               />
             </div>
           ))}
@@ -134,6 +159,7 @@ export const pageQuery = graphql`
             author
             type
             readingTime
+            subType
           }
           fields {
             slug

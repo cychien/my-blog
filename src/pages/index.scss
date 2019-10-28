@@ -26,7 +26,7 @@
       max-width: 1140px;
       @include container;
     }
-    
+
     @media (max-width: 576px) {
       border-radius: 26px 26px 0 0;
       background-color: #f0f0f0;
@@ -91,6 +91,17 @@
     cursor: pointer;
     background-color: #fefefe;
     height: 100%;
+
+    &--horizontal {
+      @media (min-width: 768px) {
+        display: flex;
+        height: 270px;
+        & > div {
+          width: 50%;
+          height: 100%;
+        }
+      }
+    }
   }
   &__article-thumbnail {
     width: 100%;

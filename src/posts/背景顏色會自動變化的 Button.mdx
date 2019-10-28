@@ -1,0 +1,138 @@
+---
+title: 背景顏色會自動變化的 Button
+cover: ../assets/images/post4-cover.jpg
+excerpt:
+  這個效果其實是用「背景移動」達成的。我們會先為 Button 設一個大於自身長寬的背景（使用 background-size
+  來增大背景大小），然後利用 CSS Animation 來操作這個背景的位置（使用
+  background-position 移動背景）
+date: 2019-10-27
+author: Justin
+readingTime: 5
+type: web
+subType: CSS is cool
+---
+
+import Alert from '../components/Alert'
+import Margin from '../components/Margin'
+import AutoChangeColorBtn from '../demo/demo1/AutoChangeColorBtn'
+import ChangeBgDetail from '../demo/demo1/ChangeBgDetail'
+import RainbowBtn from '../demo/demo1/RainbowBtn'
+
+<Margin bottom="36px">
+  <Alert>
+    嗨！歡迎來到{' '}
+    <span style={{ color: '#306060' }}>
+      <b>CSS is cool</b>
+    </span>{' '}
+    系列文章，這個系列會實作一些酷炫的 CSS 效果，同時帶到一些 CSS
+    屬性的基本觀念，歡迎持續 follow 這個主題 ～
+  </Alert>
+</Margin>
+
+今天想分享的效果是「背景顏色會自動變化的 Button」，底下是這次的成品：
+
+<Margin top="80px" bottom="80px">
+  <AutoChangeColorBtn />
+</Margin>
+
+在看 code 之前我們先來理解一下背後的原理是什麼
+
+<Margin bottom="36px">
+  <Alert isConcept>
+    這個效果其實是用「背景移動」達成的。
+    <br />
+    我們會先為 Button 設一個大於自身長寬的背景（使用 background-size
+    來增大背景大小），然後利用 CSS Animation 來操作這個背景的位置（使用
+    background-position 移動背景）
+    <br />
+    你可以把 Button 想像成一個窗格，只有在這窗格裡的顏色才會被顯現出來。
+    <ChangeBgDetail />
+  </Alert>
+</Margin>
+
+了解思路後，我們再來看 code
+
+```css
+button {
+  background: linear-gradient(to right, #8930fd, #49ccf9);
+  /* 建立一個大於自身大小的背景 */
+  background-size: 250% 250%;
+  /* 移動背景 */
+  animation: 5s infinite change-bg;
+  /*...other css codes of button */
+}
+
+@keyframes change-bg {
+  0%,
+  100% {
+    background-position: 10% 0;
+  }
+  50% {
+    background-position: 90% 100%;
+  }
+}
+```
+
+<Margin bottom="36px">
+  <Alert isTips title="background-size">
+    background-size 控制 background
+    的大小，預設和父元素長寬一樣。有幾種類型的屬性：
+    <ul>
+      <li>
+        <b>auto</b>
+        <br />當 width 或 height 其中一個有值，另一個設為 auto 時，代表 background
+        將依有值的那個屬性等比例放大
+      </li>
+      <li>
+        <b>cover</b>
+        <br />
+        等比例放大 background，直到 background 完全充滿整個父元素為止
+      </li>
+      <li>
+        <b>contain</b>
+        <br />
+        等比例放大 background，在「整張圖片能完全可見」的前提下，放到最大
+      </li>
+      <li>
+        <b>長度</b>
+        <br />
+        設置長寬
+      </li>
+      <li>
+        <b>百分比</b>
+        <br />
+        設置長寬，以父元素大小為百分比基準
+      </li>
+    </ul>＊ 如果長度或百分比只設了一個值，那個值將代表 width，height 自動變為 auto
+  </Alert>
+</Margin>
+
+<Margin bottom="36px">
+  <Alert isTips title="background-position">
+    background-position 控制 background 之於父元素的位置。有幾種類型的屬性:
+    <ul>
+      <li>
+        <b>長度</b><br />
+        例如：'20px 30px' 指的是 background 右緣距離父元素右緣 20px，background 上緣距離父元素上緣 30px
+      </li>
+      <li>
+        <b>百分比</b><br/>
+        例如： '10% 20%' 指的是「background 寬度的 10% 處」對齊「父元素寬度的 10% 處」，「background 高度的 20% 處」對齊「父元素高度的 20% 處」
+      </li>
+      <li>
+        <b>關鍵字：top, bottom, center, left, right</b>
+        <br />
+        彼此可以組合使用，例如：'top center'，'top center' 代表 background 上緣對齊父元素的上緣，中線對中線，又等價於 '0% 50%'
+      </li>
+    </ul>
+
+  </Alert>
+</Margin>
+
+同樣的，你也可以以相同的方式做出這個彩色邊框 Button，差別只是把漸層背景換成圖片背景，大家可以試試 ～
+
+<Margin bottom="36px">
+  <RainbowBtn />
+</Margin>
+
+那這次的內容就到這邊，祝大家 Happy Coding :)

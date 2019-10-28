@@ -1,0 +1,59 @@
+.demo1__rainbowBtn {
+  position: relative;
+  text-align: center;
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+  button {
+    border: none;
+    border-radius: 5px;
+    width: 90%;
+    @media (min-width: 576px) {
+      width: 45%;
+    }
+    @media (min-width: 992px) {
+      width: 35%;
+    }
+    height: 90px;
+    background: url(https://d33wubrfki0l68.cloudfront.net/791e8936b25f909a3cbc585d633c1482477370ec/63dd2/images/pricing/circus-camo.svg);
+    background-size: 600%;
+    animation: 10s infinite change-bg2;
+    position: relative;
+    span {
+      display: flex;
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      right: 10px;
+      left: 10px;
+      background-color: #fff;
+      justify-content: center;
+      align-items: center;
+      color: #111;
+      text-align: center;
+      text-decoration: none;
+      font-size: 20px;
+      border-radius: 5px;
+    }
+  }
+}
+
+@keyframes change-bg {
+  0%,
+  100% {
+    background-position: 10% 0;
+  }
+  50% {
+    background-position: 90% 100%;
+  }
+}
+
+@keyframes change-bg2 {
+  0%,
+  100% {
+    background-position: 10% 0;
+  }
+  50% {
+    background-position: 30% 50%;
+  }
+}
