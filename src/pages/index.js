@@ -60,6 +60,7 @@ const Article = ({
 
 function Index({ data }) {
   const windowSize = useWindowSize()
+  console.log(windowSize)
   const divisor = windowSize.width > 992 ? 3 : 2
   const [selectedArticleType, setSelectedArticleType] = useState('all')
   const { edges: posts } = data.allMdx
