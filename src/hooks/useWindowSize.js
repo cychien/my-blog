@@ -10,7 +10,7 @@ function useWindowSize() {
     }
   }, [isClient])
 
-  const [windowSize, setWindowSize] = useState(getSize)
+  const [windowSize, setWindowSize] = useState(getSize())
 
   useEffect(() => {
     if (!isClient) {
