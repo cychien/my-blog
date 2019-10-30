@@ -52,7 +52,7 @@ const query = graphql`
       siteMetadata {
         defaultTitle: title
         defaultDescription: description
-        siteUrl: url
+        siteUrl
         defaultImage: image
       }
     }

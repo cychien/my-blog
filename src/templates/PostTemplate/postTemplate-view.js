@@ -16,6 +16,7 @@ function PostTemplateView({ data }) {
       <SEO
         title={data.mdx.frontmatter.title}
         description={data.mdx.frontmatter.excerpt}
+        image={`${data.mdx.frontmatter.cover.publicURL}`}
         pathname={`/${data.mdx.frontmatter.title}`}
         isArticle
       />
@@ -65,6 +66,7 @@ export const query = graphql`
       frontmatter {
         title
         cover {
+          publicURL
           childImageSharp {
             fluid(maxWidth: 2000) {
               ...GatsbyImageSharpFluid
