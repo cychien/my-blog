@@ -6,9 +6,35 @@
   font-size: 20px;
   border-radius: 5px;
 
+  & ul {
+    padding-left: 30px;
+  }
+
   &__icon {
     position: absolute;
     left: -16px;
     top: -9px;
+  }
+
+  &__title {
+    font-size: 18px;
+    margin-bottom: 8px;
+    @media (min-width: 576px) {
+      font-size: 20px;
+    }
+  }
+
+  &__text {
+    font-size: 16px;
+    @media (min-width: 576px) {
+      font-size: 18px;
+    }
+    & li,
+    & b {
+      font-size: 16px;
+      @media (min-width: 576px) {
+        font-size: 18px;
+      }
+    }
   }
 }

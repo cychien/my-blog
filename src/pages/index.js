@@ -105,7 +105,7 @@ function Index({ data }) {
                 'col-12': postRemainder === 1,
                 'col-lg-6 col-md-6 col-12': postRemainder === 2,
               })}
-              style={{ marginBottom: '18px' }}
+              style={{ marginBottom: '30px' }}
             >
               <Article
                 link={post.node.fields.slug}
@@ -123,7 +123,7 @@ function Index({ data }) {
             <div
               key={post.node.id}
               className="col-lg-4 col-sm-6 col-12"
-              style={{ marginBottom: '18px' }}
+              style={{ marginBottom: '30px' }}
             >
               <Article
                 link={post.node.fields.slug}
