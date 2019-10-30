@@ -5,6 +5,7 @@ import cx from 'classnames'
 import moment from 'moment'
 import MainLayout from '../layouts/MainLayout'
 import SEO from '../components/SEO'
+import useWindowSize from '../hooks/useWindowSize'
 import './index.scss'
 
 const articleTypes = ['all', 'life', 'productivity', 'web']
@@ -58,6 +59,8 @@ const Article = ({
 )
 
 function Index({ data }) {
+  const windowSize = useWindowSize()
+  const divisor = windowSize.width > 992 ? 3 : 2
   const [selectedArticleType, setSelectedArticleType] = useState('all')
   const { edges: posts } = data.allMdx
   const displayPosts =
@@ -71,7 +74,7 @@ function Index({ data }) {
         moment(b.node.frontmatter.date).valueOf() -
         moment(a.node.frontmatter.date).valueOf()
     )
-  const postRemainder = displayPosts.length % 3
+  const postRemainder = displayPosts.length % divisor
   const displayPostsRemainder =
     postRemainder === 0 ? [] : displayPostSortByTime.slice(0, postRemainder)
   const displayPostsMinusRemainder =
