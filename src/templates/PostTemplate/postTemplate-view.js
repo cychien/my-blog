@@ -10,6 +10,7 @@ import CodeBlock from '../../components/CodeBlock'
 import './postTemplate.scss'
 
 function PostTemplateView({ data }) {
+  console.log(data.mdx.frontmatter.excerpt)
   return (
     <ArticleLayout>
       <SEO
@@ -72,6 +73,7 @@ export const query = graphql`
         }
         date
         readingTime
+        excerpt
       }
     }
   }

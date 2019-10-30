@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Justin Chien's Blog`,
-    description: `嗨，我是Justin，我是一名碩士學生、前端工程師、閱讀愛好者，喜歡和人分享知識與內心的想法`,
+    description: `嗨，我是 Justin！目前是資管所碩士班學生、前端工程師和閱讀愛好者，希望透過部落格傳播對大家有幫助的內容，也歡迎與我交流或做朋友 :)`,
     url: 'https://justinchien.co',
     image: `${__dirname}/src/assets/images/favicon.png`,
   },
