@@ -19,7 +19,7 @@ function SEO({ title, description, image, pathname, isArticle }) {
   const seo = {
     title: title || defaultTitle,
     description: description || defaultDescription,
-    image: `${siteUrl}${image || defaultImage}`,
+    image: image ? `${siteUrl}${image}` : defaultImage,
     url: `${siteUrl}${pathname || '/'}`,
   }
 
@@ -34,7 +34,11 @@ function SEO({ title, description, image, pathname, isArticle }) {
         <meta name="description" content={seo.description} />
         <meta name="image" content={seo.image} />
         {seo.url && <meta property="og:url" content={seo.url} />}
-        {isArticle && <meta property="og:type" content="article" />}
+        {isArticle ? (
+          <meta property="og:type" content="article" />
+        ) : (
+          <meta property="og:type" content="blog" />
+        )}
         {seo.title && <meta property="og:title" content={seo.title} />}
         {seo.description && (
           <meta property="og:description" content={seo.description} />
