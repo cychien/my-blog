@@ -30,6 +30,7 @@ function SEO({ title, description, image, pathname, isArticle }) {
         titleTemplate="%s | Justin Chien"
         defaultTitle="Justin Chien's Blog"
       >
+        <html lang="zh-Hant" />
         <meta name="description" content={seo.description} />
         <meta name="image" content={seo.image} />
         {seo.url && <meta property="og:url" content={seo.url} />}

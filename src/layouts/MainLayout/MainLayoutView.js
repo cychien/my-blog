@@ -4,7 +4,7 @@ import Image from 'gatsby-image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import OutsideListener from '../../components/OutsideListener'
-import avatar from '../../assets/images/avatar.png'
+import avatar from '../../assets/images/avatar.jpg'
 import './mainLayout.scss'
 
 function MainLayoutView({ children, isMenuOpen, toggleMenu }) {
