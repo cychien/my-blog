@@ -8,13 +8,13 @@ import SEO from '../components/SEO'
 import useWindowSize from '../hooks/useWindowSize'
 import './index.scss'
 
-const articleTypes = ['all', 'life', 'productivity', 'web']
+const articleTypes = ['all', 'life', 'productivity', 'book']
 const findArticleTypeLabel = type => {
   const typeLabelMap = {
     all: '所有文章',
     life: '人生建議',
     productivity: '生產力',
-    web: '網頁開發',
+    book: '推書',
   }
   return typeLabelMap[type] || null
 }
@@ -164,7 +164,6 @@ export const pageQuery = graphql`
             author
             type
             readingTime
-            subType
           }
           fields {
             slug
