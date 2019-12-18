@@ -43,11 +43,12 @@ function PostTemplateView({ data }) {
           components={{
             a: props => <a {...props} className="post__mdx-a" />,
             p: props => <p {...props} className="post__mdx-p" />,
-            h4: props => <h4 {...props} className="post__mdx-h4" />,
-            h5: props => <h5 {...props} className="post__mdx-h5" />,
+            h2: props => <h2 {...props} className="post__mdx-h2" />,
+            h3: props => <h3 {...props} className="post__mdx-h3" />,
             blockquote: props => (
               <blockquote {...props} className="post__mdx-blockquote" />
             ),
+            strong: props => <strong {...props} className="post__mdx-strong" />,
             code: CodeBlock,
           }}
         >

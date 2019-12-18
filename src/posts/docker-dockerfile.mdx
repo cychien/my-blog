@@ -1,0 +1,83 @@
+---
+title: Dockerfile
+cover: ../assets/images/default.jpg
+excerpt: 深入指令之前，我們先來談什麼是 Dockerfile
+date: 2019-12-17
+author: Justin
+readingTime: 5
+type: docker
+---
+
+## 設定目標
+
+學到這裡，我想要給你一個學習目標，希望能透過這個目標讓你知道自己為何而學，讓你知道這些知識能幫助你做到什麼
+
+這個目標是一個短程目標，達到之後我會給你下一個目標，這個短程目標是：
+
+> 讓你的程式可以用 docker 的方式運行在不同地方
+
+使用情境可以是「讓你的爬蟲程式跑在雲端主機上」之類的，以前你可能要擔心環境，現在你可以放心把一切交給 docker，而要達成這個目標你必須先學會 image, container 的指令等相關知識，準備好了嗎？我們開始吧！
+
+## 什麼是 Dockerfile
+
+在深入指令之前，我們先來談什麼是 Dockerfile
+
+> Dockerfile 是一個設定檔，它定義了要如何建立出 image
+
+記得我們說過 image 是把我們應用程式打包後的結果，他像一張設計圖，而 docker 可以透過這張設計圖創建出 container，執行你的程式
+
+但你的應用程式本身並不會自動包成 image，因此你需要定義一個檔案來教 docker 如何包裝你的應用程式，這份檔案就是 Dockerfile
+
+## Dockerfile 指令
+
+下面是一個實際的 Dockerfile，我們一行行來看
+
+```
+FROM debian:jessie
+ENV NGINX_VERSION 1.1.10-1~jessie
+RUN apt-get update...
+EXPOSE 80 443
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+`FROM debian:jessie`  
+代表這個 image 繼承自 `debian:jessie`這個 image，這讓你不需要自己處理更細節、更底層的事情。額外舉一個例子，如果你的應用程式想運行於 node.js v10 上的，那麼你應該會這樣寫：`FROM node:10-alpine`
+
+`ENV NGINX_VERSION 1.1.10-1~jessie`  
+定義了一個名為 `NGINX_VERSION`的環境變數，值為 `1.1.10-1~jessie`
+
+`RUN apt-get update...`  
+因實際內容過多所以我省略不寫了。docker 會依照 image 創建 container，而 image 是由 Dockerfile 一步步建立的，因此 container 某種程度上也是依照 Dockerfile 創建的。你可以想像在創建 container 的過程中，會先創造出一個空間，然後逐步執行 Dockerfile 描述的指令，讓這個 container 充實起來，執行指令是按照順序的，愈上面的指令愈先執行。所以依以上的例子來看，`FROM debian:jessie` 會將 debian 這個 OS 裝起來，之後一步步執行到 `RUN` ，而`RUN`指令就是命令你的 container 在他「自己的環境」要執行些什麼指令，可以是 `apt-get ...`安裝運行應用程式所需要的套件之類的
+
+`EXPOSE 80 443`  
+代表這個 container 要開的 port 是什麼
+
+`CMD ["nginx", "-g", "daemon off;"]`  
+代表當 container 啟動時要執行的第一個指令是什麼
+
+我們接著看第二個 Dockerfile，學習更多指令
+
+```
+FROM nginx:latest
+WORKDIR /usr/share/nginx/html
+COPY index.html index.html
+```
+
+`WORKDIR /usr/share/nginx/html`  
+類似於 `cd`指令，移動到「container 內」的某個目錄
+
+`COPY index.html index.html`  
+這邊指的是複製「你現在所處目錄下的 index.html」到「container 內的 index.html」，通常你會把你寫好的程式利用這個方式送進去 container，
+注意順序，不要搞混了
+
+由這些指令你能清楚的告訴 docker 如何做出我們想要的 Image，在[這個資源](https://docs.docker.com/engine/reference/builder/)中有更詳細的指令與說明，可以參閱
+
+在下面 Image 的章節，我們就要來看如何透過 dockerfile build 出你想要的 Image
+
+## 快速測驗
+
+- Dockerfile 的功用是什麼
+
+參考解答
+
+- A Dockerfile is a text document that contains all the commands you would normally execute manually in order to build a Docker image. Docker can build images automatically by reading the instructions from a Dockerfile. (出自 [Docker Doc](https://docs.docker.com/glossary/))
