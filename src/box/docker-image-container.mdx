@@ -1,0 +1,97 @@
+---
+title: Image 和 Container
+cover: ../assets/images/default.jpg
+excerpt: 學完這個章節，你將會了解 Image 和 Container 各是什麼，他們彼此之間又存在什麼樣的關係
+date: 2019-12-15
+author: Justin
+readingTime: 5
+type: docker
+---
+
+接下來，將介紹 Docker 中的一個最基礎也是最重要的觀念：Image 和 Container
+
+學完這個章節，你將會了解 Image 和 Container 各是什麼，他們彼此之間又存在什麼樣的關係，好，我們開始吧！
+
+## Image 和 Container 的關係
+
+如果你曾經學過物件導向程式語言的話，你可以非常快速的理解 Image 和 Container 之間的關係，以一句話來說就是
+
+> Class 與 Instance 之間的關係
+
+Image 概念類似於 Class，而 Container 則類似於 Instance
+
+如果你沒學過物件導向也沒關係，這邊舉一個例子：你可以將 Image 視為一張某產品的設計圖，將 Container 視為那個產品，因此藉由 Image 你能夠創造出多個 Container，而這些 Container 都是同一個模子刻出來的，所以都會長得一樣
+
+還記得「容器化」這個詞嗎？容器化指的是將作業系統、環境變數、程式碼等等通通打包在一塊。在 Docker 中，Image 就是你將你的應用程式「容器化」後所得的東西，他是一張設計圖，Docker 只要有了這張設計圖，就知道如何將產品（Container）製造出來，而 Container 正式來說則是一個 process，是一個正在執行的電腦程序
+
+我們重新來檢視一個應用程式的搬遷過程，並嘗試用 Image 及 Container 來說明這整個流程。假設你已經在 local 完成了開發，現在必須透過 Docker 部署到雲端，你的步驟會如下：
+
+### 1. 將應用程式包成 Image
+
+這個過程我們一般又會稱為「Dockerize」或 「build image」
+
+### 2. 將 Image 上傳到雲端主機
+
+你可以先將 image 上傳到 docker hub，然後再到雲端主機上將 Image 從 docker hub 下載下來，我們在之後會來解釋什麼是 docker hub
+
+### 3. 在雲端主機中透過 Image 跑起 Container
+
+一旦有了 Image，Docker 就知道如何製造出 Container，因此你就能夠跑起你的服務
+
+值得注意的是，以上步驟都需要在裝有 Docker 的電腦才能順利運行，local 主機和雲端主機都需要裝
+
+## 運行你的第一個 Docker Container
+
+我們試一個很簡單的例子，這個例子能幫助你對 Image 和 Container 的感覺更為深刻
+
+首先，確定你已經裝有 Docker，你可以通過以下指令來檢查
+
+```
+docker --version
+```
+
+接下來，我們下以下指令
+
+```
+docker container run --publish 80:80 --detach nginx
+```
+
+這行指令做的事是「讓 Docker 根據 nginx 這個 Image run 起一個 container」
+
+你可能會有疑問：「我什麼時候有一個 Image 了？」，這邊先簡單向你回答，這個 Image 並不是你做的，而是存儲在遠端倉庫的，你只是把它拿下來用而已，我們很快就會在下一章解釋這個神秘的遠端倉庫
+
+同樣的，你也先別太急著弄懂上面每個字的意思，我們在這只要感覺一件事，就是「docker 有能力根據你的 Image 開啟一個相對應的 Container」
+
+此時你的電腦中應該會有一個正在運行中的 Container，你可以下以下指令來看看他
+
+```
+docker container ls
+```
+
+然後為了向你證明你的 container 是成功 run 起的，請你到瀏覽器輸入網址
+
+```
+localhost
+```
+
+登愣！是不是看到 nginx 的歡迎頁了！
+
+現在你是不是稍微感覺到 Docker 的強大，Docker 下了一個指令就幫你把 nginx 裝回家，同時還啟動了它
+
+最後，要記得關掉這個 Container
+
+```
+docker container rm -f <container-name>
+```
+
+`<container name>` 你可以從 `docker container ls` 找到
+
+## 快速測驗
+
+- 解釋 Image 和 Container 各是什麼？他們之間的關係又是什麼？
+- 盡可能完整的說明 Docker 的搬遷部署流程（加入 Image 和 Container 使說明更完整），並想想看這樣做是不是比沒有使用 Docker 時來的方便
+
+參考解答
+
+- [What is the difference between a Docker image and a container? - Stack Overflow](https://stackoverflow.com/questions/23735149/what-is-the-difference-between-a-docker-image-and-a-container#answer-23736802)
+- 1. 將應用程式包成 Image 2. 將 Image 上傳到雲端主機 3. 在雲端主機中透過 Image 跑起 Container
