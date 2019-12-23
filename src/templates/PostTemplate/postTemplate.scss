@@ -227,6 +227,20 @@
   &__mdx-ol {
     margin-top: -18px;
   }
+
+  &__mdx-li {
+    font-size: 18px;
+    @media (min-width: 576px) {
+      font-size: 20px;
+    }
+  }
+}
+
+:not(pre) > code {
+  border-radius: 0.3em;
+  background: rgba(#07acac, 0.15);
+  color: #333;
+  padding: 0.15em 0.2em 0.05em;
 }
 
 .gatsby-resp-image-background-image {
