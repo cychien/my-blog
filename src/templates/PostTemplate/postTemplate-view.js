@@ -46,6 +46,7 @@ function PostTemplateView({ data }) {
             h3: props => <h3 {...props} className="post__mdx-h3" />,
             pre: props => <pre {...props} className="post__mdx-pre" />,
             ol: props => <ol {...props} className="post__mdx-ol" />,
+            li: props => <li {...props} className="post__mdx-li" />,
             blockquote: props => (
               <blockquote {...props} className="post__mdx-blockquote" />
             ),
