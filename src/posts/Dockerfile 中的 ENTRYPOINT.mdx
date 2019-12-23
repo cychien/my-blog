@@ -1,0 +1,123 @@
+---
+title: Dockerfile 中的 ENTRYPOINT
+cover: ../assets/images/docker/docker.png
+excerpt: ENTRYPOINT 是 Dockerfile 定義的一個指令，他的作用類似於 CMD，都是在 container 啟動時會自動執行的指令，你可以不定義 CMD，然後改成定義 ENTRYPOINT，你的 container 照樣能夠啟動，如同你之前將命令寫在 CMD 一樣
+date: 2019-12-23
+author: Justin
+readingTime: 5
+type: code
+---
+
+ENTRYPOINT 是 Dockerfile 定義的一個指令，他的作用類似於 CMD，都是在 container 啟動時會自動執行的指令，你可以不定義 CMD，然後改成定義 ENTRYPOINT，你的 container 照樣能夠啟動，如同你之前將命令寫在 CMD 一樣。
+
+那我們為什麼需要 ENTRYPOINT 呢？
+
+因為 ENTRYPOINT 不只擁有取代 CMD 的功能，更重要的還有與 CMD「合用」的功能，如果你同時定義了 ENTRYPOINT 與 CMD，那這兩個指令將會合而為一，組在一起執行。例如：
+
+```yaml
+ENTRYPOINT ["curl"]
+CMD ["http://dummy-url.com/"]
+```
+
+container 啟動時會執行 `curl http://dummy-url.com/`
+
+接下來，我們先來看看 ENTRYPOINT 的指令格式，之後再來看幾個 ENTRYPOINT 的 use case，讓你更了解 ENTRYPOINT 能做什麼。
+
+## 指令格式
+
+ENTRYPOINT 有兩種指令格式
+
+- /shell/ form
+- /exec/ form
+
+### shell form
+
+格式 `ENTRYPOINT command param1 param2`
+
+如果你以 shell form 來寫 ENTRYPOINT，那麼你將失去 ENTRYPOINT 能與 CMD 合用的這個功能，舉上面的例子來看
+
+```yaml
+ENTRYPOINT curl
+CMD ["http://dummy-url.com/"]
+```
+
+產出指令會是 `curl`
+
+但這種指令有一個優點，就是他預設以 `/bin/sh -c` 執行，所以剛剛的結果最終其實是 `/bin/sh -c curl`，因此他能接受環境變數傳入當參數，像是你的 ENTRYPOINT 可以寫成這樣 `ENTRYPOINT curl ${url}`，只要你在環境變數中有定義 `url`，那麼你就能取到這個值。
+
+### exec form
+
+格式 `ENTRYPOINT [“executable”, “param1”, “param2”]`
+
+這是官方較推薦的使用格式，他的特性恰恰與 shell form 相反，exec form 可以與 CMD 合用，但要注意的是 CMD 的指令格式也必須是 exec form:
+
+```yaml
+ENTRYPOINT ["curl"]
+CMD ["http://dummy-url.com/"]
+```
+
+產出指令會是 `curl http://dummy-url.com/`
+
+另一個要特別注意的一點是 exec form 不會以 `/bin/sh -c` 執行，也就是說他不能直接讀取環境變數的值，但好消息是你能夠透過手動指定執行環境來克服這點，例如手動加 `/bin/sh -c` ：
+
+```yaml
+ENTRYPOINT [ "/bin/sh", "-c", "echo $HOME" ]
+```
+
+或是在 shell script 開頭處指定
+
+```bash
+#!/bin/sh
+```
+
+## Use Cases
+
+### 1. 替換經常變動的參數
+
+以這個例子為例
+
+```yaml
+FROM ubuntu
+ENTRYPOINT ["top", "-b"]
+CMD ["-c"]
+```
+
+通常會把穩定的參數放在 ENTRYPOINT，像是 `-b`，也就是你希望每個 container 都需要執行到的指令，另一方面，則會把會經常變動的參數放在 `CMD`，代表你希望不同 container 可以使用不同參數，而 `-c`是預設行為。
+
+只要你想更改這個預設行為，你可以直接通過指令更改
+
+```bash
+docker run -it --rm --name test  top -H
+```
+
+如此一來最後執行到的就會是 `top -b -H`
+
+### 2. 在 container 啟動前進行初始化設定
+
+我們透過 mysql 的 [Dockerfille](https://github.com/docker-library/mysql/blob/6659750146b7a6b91a96c786729b4d482cf49fe6/8.0/Dockerfile) 來說明
+
+```yaml
+ENTRYPOINT ["docker-entrypoint.sh"]
+EXPOSE 3306 33060
+CMD ["mysqld"]
+```
+
+在執行 `mysqld` 之前，執行了一個 `docker-entrypoint.sh` 的 script，我們接著來看看這個 [script](https://github.com/docker-library/mysql/blob/6659750146b7a6b91a96c786729b4d482cf49fe6/8.0/docker-entrypoint.sh)
+
+```bash
+if [ -n "$MYSQL_RANDOM_ROOT_PASSWORD" ]; then
+		export MYSQL_ROOT_PASSWORD="$(pwgen -1 32)"
+		mysql_note "GENERATED ROOT PASSWORD: $MYSQL_ROOT_PASSWORD"
+```
+
+這是其中一段，你會發現這個 script 讀取了環境變數 `$MYSQL_RANDOM_ROOT_PASSWORD`，並依照值做初始化的動作。ENTRYPOINT 讓你有機會在 CMD 執行之前做一些事。
+
+以上就是關於 ENTRYPOINT 的介紹，如果有不懂或寫不好的地方都歡迎和我說哦
+
+---
+
+參考來源
+
+1. [Docker Documentation](https://docs.docker.com/engine/reference/builder/)
+2. [Running Custom Scripts In Docker With Arguments – ENTRYPOINT Vs CMD](https://devopscube.com/run-scripts-docker-arguments/)
+3. mysql 的 [Dockerfille](https://github.com/docker-library/mysql/blob/6659750146b7a6b91a96c786729b4d482cf49fe6/8.0/Dockerfile) 和 [docker-entrypoint.sh](https://github.com/docker-library/mysql/blob/6659750146b7a6b91a96c786729b4d482cf49fe6/8.0/docker-entrypoint.sh)

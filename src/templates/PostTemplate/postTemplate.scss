@@ -219,6 +219,14 @@
       line-height: 1.7em;
     }
   }
+
+  &__mdx-pre {
+    margin-bottom: 40px;
+  }
+
+  &__mdx-ol {
+    margin-top: -18px;
+  }
 }
 
 .gatsby-resp-image-background-image {

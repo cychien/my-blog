@@ -10,7 +10,6 @@ import CodeBlock from '../../components/CodeBlock'
 import './postTemplate.scss'
 
 function PostTemplateView({ data }) {
-  console.log(data.mdx.frontmatter.excerpt)
   return (
     <ArticleLayout>
       <SEO
@@ -45,6 +44,8 @@ function PostTemplateView({ data }) {
             p: props => <p {...props} className="post__mdx-p" />,
             h2: props => <h2 {...props} className="post__mdx-h2" />,
             h3: props => <h3 {...props} className="post__mdx-h3" />,
+            pre: props => <pre {...props} className="post__mdx-pre" />,
+            ol: props => <ol {...props} className="post__mdx-ol" />,
             blockquote: props => (
               <blockquote {...props} className="post__mdx-blockquote" />
             ),
