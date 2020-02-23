@@ -8,14 +8,13 @@ import SEO from '../components/SEO'
 import useWindowSize from '../hooks/useWindowSize'
 import './index.scss'
 
-const articleTypes = ['all', 'life', 'productivity', 'book', 'code']
+const articleTypes = ['all', 'life', 'book']
 const findArticleTypeLabel = type => {
   const typeLabelMap = {
     all: '所有文章',
     life: '人生建議',
-    productivity: '生產力',
+    // productivity: '生產力',
     book: '推書',
-    code: '技術',
   }
   return typeLabelMap[type] || null
 }
